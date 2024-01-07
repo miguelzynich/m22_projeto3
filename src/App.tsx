@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// src/App.tsx
 
-function App() {
+import React, { useState } from 'react';
+import AddNoteForm from './components/AddNoteForm/AddNoteForm';
+import NoteList from './components/NoteList/NoteList';
+import FilterComponent from './components/FilterComponent/FilterComponent'; // Update the import path
+
+interface Note {
+  note: string;
+  createdAt: string;
+}
+
+const App: React.FC = () => {
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [filter, setFilter] = useState('');
+  const [sortOrder, setSortOrder] = useState<'recente' | 'antigo'>('recente');
+
+  const handleAddNote = (newNote: Note) => {
+    setNotes([...notes, newNote]);
+  };
+
+  const handleDeleteNote = (index: number) => {
+    const updatedNotes = [...notes];
+    updatedNotes.splice(index, 1);
+    setNotes(updatedNotes);
+  };
+
+  const handleFilterChange = (newFilter: string, newSortOrder: 'recente' | 'antigo') => {
+    setFilter(newFilter);
+    setSortOrder(newSortOrder);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <AddNoteForm addNote={handleAddNote} />
+      <FilterComponent onFilterChange={handleFilterChange} />
+      <NoteList notes={notes} filter={filter} sortOrder={sortOrder} onDelete={handleDeleteNote} />
+
+
     </div>
   );
-}
+};
 
 export default App;

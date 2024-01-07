@@ -1,0 +1,21 @@
+#filterComponentDiv {
+  text-align: center;
+  margin: 36px auto; 
+}
+
+#filterComponentDiv label {
+  margin-right: 20px;
+}
+
+#filterInput,
+#sortOrder {
+  padding: 12px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#sortOrder {
+  padding: 8px;
+  cursor: pointer;
+}
